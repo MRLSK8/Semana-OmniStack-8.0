@@ -1,0 +1,6 @@
+#node modules lib
+node_modules/
+
+#Vs Code settings
+.vscode/
+
