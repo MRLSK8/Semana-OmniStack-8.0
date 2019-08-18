@@ -10,7 +10,7 @@ mongoose.connect('mongodb+srv://omnistack8:omnistack8@cluster0-mge5c.mongodb.net
 }
 )
 
-server.user(cors())
+server.use(cors())
 server.use(express.json())
 server.use(routes)
 server.listen(3333)
