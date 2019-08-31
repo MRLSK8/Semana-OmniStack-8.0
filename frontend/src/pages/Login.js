@@ -5,15 +5,19 @@ import '../pages/Login.css'
 
 export default function Login({ history }){
     const [username, setUsername] = useState('')
-    
+
     async function handleSubmit(e){
         e.preventDefault()
 
         const response = await api.post('/devs', {username })
 
-        const { _id } = response.data
+        if(response.data){
+            const { _id } = response.data 
 
-        history.push(`/dev/${_id}`)
+            history.push(`/dev/${_id}`)
+        }else{
+            window.alert('Este usuario não existe!')            
+        }
     }
 
     function handleInputChange(e){

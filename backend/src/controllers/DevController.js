@@ -26,16 +26,21 @@ module.exports = {
             return res.json(userExist)
         }
 
-        const response = await axios.get(`https://api.github.com/users/${username}`)
-        const { name, bio, avatar_url: avatar } = response.data
+        await axios.get(`https://api.github.com/users/${username}`).then(async (response)=>{
+            const { name, bio, avatar_url: avatar } = response.data
 
-        const dev = await Dev.create({
-            name,
-            user: username,
-            bio,
-            avatar
-        })
+            const dev = await Dev.create({
+                name,
+                user: username,
+                bio,
+                avatar
+            })
 
-        return res.json(dev)
+            return res.json(dev)
+        }).catch(() => {
+                return res.send(false)
+            }
+        )
+        
     }
 }
