@@ -14,6 +14,12 @@ export default function Login({ navigation }){
                 navigation.navigate('Main', { user })
             }
         })
+
+        AsyncStorage.getItem('git').then(user => {
+            if(user){
+                navigation.navigate('githubPage', { user })
+            }
+        })
     }, [])
     
     async function handleLogin(){

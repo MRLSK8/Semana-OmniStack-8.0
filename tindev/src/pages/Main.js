@@ -50,12 +50,18 @@ export default function Main({ navigation }){
         navigation.navigate('Login')
     }
 
+    async function handleImageClick(user){
+        await AsyncStorage.clear()
+        await AsyncStorage.setItem('git', user)
+        navigation.navigate('githubPage', { user })
+    }
+
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={handleLogout}>
                 <Image style={styles.logo} source={logo} />
             </TouchableOpacity>
-
+            
             <View style={styles.cardsContainer}>
                 { users.length == 0 ?
                 <Text style = {styles.empty}> Acabou :( </Text> :
@@ -65,7 +71,11 @@ export default function Main({ navigation }){
                         <View style={styles.footer}>
                             <Text style={styles.name}> {user.name} </Text>
                             <Text style={styles.bio} numberOfLines={3}> { user.bio } </Text>
+                            <TouchableOpacity style={styles.github} onPress={() => handleImageClick(user.user)}>
+                                <Text style={styles.githubLink}>{`github.com/${user.user}`}</Text>
+                            </TouchableOpacity>
                         </View>
+                        
                     </View>
                 )))}
             </View>
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
 
     avatar: {
         flex: 1,
-        height: 300 
+        height: 300
     },
 
     footer: {
@@ -137,6 +147,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#999',
         marginTop: 5,
+        marginBottom: 10,
         lineHeight: 18
     },
 
@@ -161,5 +172,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#999',
         alignSelf: 'center'
+    },
+
+    github: {
+        flex: 1,
+        padding: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        backgroundColor: '#f5f5f5'
+    },
+
+    githubLink: {
+        fontSize: 15,
+        color: '#6D74FF'
     }
 })

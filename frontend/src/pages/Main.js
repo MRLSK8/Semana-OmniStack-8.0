@@ -39,6 +39,10 @@ export default function Main({ match }){
         setUsers(users.filter(user => user._id !== id))
     }
 
+    function handleImageClick(username){
+        window.open(`https://github.com/${username}`, "_blank")
+    }
+
     return(
         <div className="main-container">
             <Link to='/'>
@@ -49,7 +53,7 @@ export default function Main({ match }){
                 <ul>
                     {users.map(user => (
                             <li key={user._id}>
-                                <img src={user.avatar} alt={user.name} />
+                                <img style={{cursor:'pointer'}} src={user.avatar} alt={user.name} onClick={() => handleImageClick(user.user)} />
 
                                 <footer>
                                     <strong>{user.name}</strong>
